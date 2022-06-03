@@ -167,6 +167,96 @@ void showMenuE()
 	}
 }
 
+
+void loadDataC()
+{
+	FILE* fp=fopen("D:/atm.txt","r");
+	if(fp!=NULL)
+	{
+		while(!feof(fp))
+		{
+			//创建结点
+			Account * newNode=(Account *)malloc(sizeof(Account));
+			
+			//结点初始化
+			newNode->next=NULL;
+			fscanf(fp,"%s %s\n",newNode->username,newNode->password);
+			
+			//添加结点到链表
+			if(head==NULL)
+			{
+				head=newNode;
+				tail=newNode;
+			}
+			else
+			{
+				tail->next=newNode;
+				tail=newNode;
+			}
+		}
+		printf("加载成功！\n");
+		fclose(fp);
+	}
+}
+
+void loadDataE()
+{
+	FILE* fp=fopen("D:/atm.txt","r");
+	if(fp!=NULL)
+	{
+		while(!feof(fp))
+		{
+			//创建结点
+			Account * newNode=(Account *)malloc(sizeof(Account));
+			
+			//结点初始化
+			newNode->next=NULL;
+			fscanf(fp,"%s %s\n",newNode->username,newNode->password);
+			
+			//添加结点到链表
+			if(head==NULL)
+			{
+				head=newNode;
+				tail=newNode;
+			}
+			else
+			{
+				tail->next=newNode;
+				tail=newNode;
+			}
+		}
+		printf("Loading successful！\n");
+		fclose(fp);
+	}
+}
+
+
+void printLinkedList()
+{
+	Account * curP=head;
+	while(curP!=NULL)
+	{
+		printf("%s\t%s\n",curP->username,curP->password);
+		curP=curP->next;
+	}
+	
+}
+
+void saveData()
+{
+	FILE* fp=fopen("D:/atm.txt","w");
+	if(fp!=NULL)
+	{
+		Account * curP=head;
+		while(curP!=NULL)
+		{
+			fprintf(fp,"%s %s\n",curP->username,curP->password);
+			curP=curP->next;
+		}
+	}
+}
+
+
 int main()
 {
 	printf("欢迎使用XXX银行\n");
@@ -179,10 +269,16 @@ int main()
 	if(language==1)
 	{
 		showMenuC();
+		loadDataC();	
+		printLinkedList();
+		saveData();
 	}
 	else if(language==2)
 	{
-		showMenuE();	
+		showMenuE();
+		loadDataE();	
+		printLinkedList();	
+		saveData();
 	}
 	return 0;
 }
